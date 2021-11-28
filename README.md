@@ -1,5 +1,6 @@
 # travel_app
-A demo of a travel app 
+A demo of a travel app.
+<br />
 <br />
 Design: 
 <ul>
