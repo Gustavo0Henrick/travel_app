@@ -1,5 +1,8 @@
 # travel_app
 A demo of a travel app 
-Design:
-	Author: Neelesh Chaudhary
-	Link: https://figmaelements.com/aloha-travel-app/
+<br />
+Design: 
+<ul>
+<li>Author: Neelesh Chaudhary </li>
+<li>Link: https://figmaelements.com/aloha-travel-app/</li>
+</ul>
