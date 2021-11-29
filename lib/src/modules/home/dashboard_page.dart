@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:travel_app/src/modules/home/pages/favorite_page.dart';
 import 'package:travel_app/src/modules/home/pages/home_page.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -20,6 +21,12 @@ List pages = [
 ];
 
 class _DashboardPageState extends State<DashboardPage> {
+  @override
+  void initState() {
+    super.initState();
+    indexPage = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -41,9 +48,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 });
               },
               child: SvgPicture.asset(
-                indexPage == 0
-                    ? 'assets/images/svg/home_selected.svg'
-                    : 'assets/images/svg/home.svg',
+                indexPage == 0 ? AppImagens.homeSelected : AppImagens.home,
               ),
             ),
             GestureDetector(
@@ -53,9 +58,7 @@ class _DashboardPageState extends State<DashboardPage> {
                 });
               },
               child: SvgPicture.asset(
-                indexPage == 1
-                    ? 'assets/images/svg/search_selected.svg'
-                    : 'assets/images/svg/search.svg',
+                indexPage == 1 ? AppImagens.searchSelected : AppImagens.search,
               ),
             ),
             GestureDetector(
@@ -66,8 +69,8 @@ class _DashboardPageState extends State<DashboardPage> {
               },
               child: SvgPicture.asset(
                 indexPage == 2
-                    ? 'assets/images/svg/favorite_selected.svg'
-                    : 'assets/images/svg/favorite.svg',
+                    ? AppImagens.favoriteSelected
+                    : AppImagens.favorite,
               ),
             ),
           ],

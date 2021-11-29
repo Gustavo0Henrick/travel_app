@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 import 'package:travel_app/src/widgets/card_tour.dart';
 
 class FavoritePage extends StatelessWidget {
@@ -10,17 +11,20 @@ class FavoritePage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     List listFavorites = [
       CardTour(
-          title: 'New York',
-          subtitle: 'United States of America',
-          imagePath: 'assets/images/png/new_york.png'),
+        title: 'New York',
+        subtitle: 'United States of America',
+        imagePath: AppImagens.newYork,
+      ),
       CardTour(
-          title: 'Sydney',
-          subtitle: 'Australia',
-          imagePath: 'assets/images/png/sydney.png'),
+        title: 'Sydney',
+        subtitle: 'Australia',
+        imagePath: AppImagens.sydney,
+      ),
       CardTour(
-          title: 'Paris',
-          subtitle: 'France',
-          imagePath: 'assets/images/png/paris.png'),
+        title: 'Paris',
+        subtitle: 'France',
+        imagePath: AppImagens.paris,
+      ),
     ];
     return Container(
       height: size.height,

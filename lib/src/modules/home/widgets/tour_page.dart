@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 import 'package:travel_app/src/widgets/card_tour.dart';
 
 class TourPage extends StatefulWidget {
@@ -10,18 +11,9 @@ class TourPage extends StatefulWidget {
 }
 
 List listCards = [
-  CardTour(
-      title: 'Paris',
-      subtitle: 'France',
-      imagePath: 'assets/images/png/paris.png'),
-  CardTour(
-      title: 'Amazon',
-      subtitle: 'Brazil',
-      imagePath: 'assets/images/png/forest.png'),
-  CardTour(
-      title: 'Fuji',
-      subtitle: 'Japan',
-      imagePath: 'assets/images/png/fuji.png'),
+  CardTour(title: 'Paris', subtitle: 'France', imagePath: AppImagens.paris),
+  CardTour(title: 'Amazon', subtitle: 'Brazil', imagePath: AppImagens.forest),
+  CardTour(title: 'Fuji', subtitle: 'Japan', imagePath: AppImagens.fuji),
 ];
 
 class _TourPageState extends State<TourPage> {

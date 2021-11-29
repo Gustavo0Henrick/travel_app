@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:travel_app/src/modules/auth/auth_page.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class OnBoardingPage extends StatelessWidget {
                 height: size.height * 0.32,
                 width: size.width,
                 child: SvgPicture.asset(
-                  'assets/images/svg/orange_draw.svg',
+                  AppImagens.orangeDraw,
                   height: size.height * 0.3,
                   width: size.width,
                   fit: BoxFit.fill,
@@ -39,7 +40,7 @@ class OnBoardingPage extends StatelessWidget {
                   height: size.height * 0.2,
                   width: size.width,
                   child: SvgPicture.asset(
-                    'assets/images/svg/white_line.svg',
+                    AppImagens.whiteLine,
                     fit: BoxFit.fill,
                     width: size.width,
                     height: size.height * 0.3,
@@ -51,7 +52,7 @@ class OnBoardingPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 200),
                   child: SvgPicture.asset(
-                    'assets/images/svg/plant.svg',
+                    AppImagens.plant,
                     width: size.width,
                   ),
                 ),

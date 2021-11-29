@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:travel_app/src/modules/home/dashboard_page.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 
 class AuthPage extends StatelessWidget {
   const AuthPage({Key? key}) : super(key: key);
@@ -27,7 +28,7 @@ class AuthPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 120),
                 child: SvgPicture.asset(
-                  'assets/images/svg/circle_orange.svg',
+                  AppImagens.circleOrange,
                   color: AppColors.orange,
                   width: size.width,
                 ),
@@ -35,48 +36,48 @@ class AuthPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 357, right: 260),
                 child: SvgPicture.asset(
-                  'assets/images/svg/boat_back.svg',
+                  AppImagens.boatBack,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 355, left: 180),
                 child: SvgPicture.asset(
-                  'assets/images/svg/boat_front.svg',
+                  AppImagens.boatFront,
                 ),
               ),
               SvgPicture.asset(
-                'assets/images/svg/water_back.svg',
+                AppImagens.waterBack,
                 fit: BoxFit.fitWidth,
                 width: size.width,
               ),
               SvgPicture.asset(
-                'assets/images/svg/water_front.svg',
+                AppImagens.waterFront,
                 fit: BoxFit.fitWidth,
                 width: size.width,
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 250, left: 160),
                 child: SvgPicture.asset(
-                  'assets/images/svg/tree_cut.svg',
+                  AppImagens.treeCut,
                   alignment: Alignment.centerRight,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 550, right: 240),
                 child: SvgPicture.asset(
-                  'assets/images/svg/bird_1.svg',
+                  AppImagens.bird1,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 510, right: 270),
                 child: SvgPicture.asset(
-                  'assets/images/svg/bird_2.svg',
+                   AppImagens.bird2,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 520, right: 190),
                 child: SvgPicture.asset(
-                  'assets/images/svg/bird_3.svg',
+                   AppImagens.bird3,
                 ),
               ),
               Padding(

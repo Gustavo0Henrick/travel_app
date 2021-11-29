@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:travel_app/src/modules/home/widgets/experiences_page.dart';
 import 'package:travel_app/src/modules/home/widgets/tour_page.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 
 import '../widgets/adventure_page.dart';
 
@@ -22,6 +23,12 @@ List homePages = [
 ];
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    indexMenu = 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -79,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   const SizedBox(width: 140),
-                  SvgPicture.asset('assets/images/svg/menu.svg'),
+                  SvgPicture.asset(AppImagens.menu),
                 ],
               ),
             ),
@@ -141,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SvgPicture.asset(
-                                  'assets/images/svg/point.svg',
+                                  AppImagens.point,
                                   color: indexMenu == 0
                                       ? AppColors.orange
                                       : AppColors.white,
@@ -174,7 +181,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SvgPicture.asset(
-                                  'assets/images/svg/point.svg',
+                                  AppImagens.point,
                                   color: indexMenu == 1
                                       ? AppColors.orange
                                       : AppColors.white,
@@ -207,7 +214,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                                 SvgPicture.asset(
-                                  'assets/images/svg/point.svg',
+                                  AppImagens.point,
                                   color: indexMenu == 2
                                       ? AppColors.orange
                                       : AppColors.white,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 import 'package:travel_app/src/widgets/card_experience.dart';
 
 class ExperiencesPage extends StatefulWidget {
@@ -11,8 +12,8 @@ class ExperiencesPage extends StatefulWidget {
 }
 
 List listCards = [
-  CardExperience(imagePath: 'assets/images/png/india.png'),
-  CardExperience(imagePath: 'assets/images/png/hawaii.png'),
+  CardExperience(imagePath: AppImagens.indiaPng),
+  CardExperience(imagePath: AppImagens.hawaiiPng),
 ];
 
 class _ExperiencesPageState extends State<ExperiencesPage> {

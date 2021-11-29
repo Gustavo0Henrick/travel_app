@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
+import 'package:travel_app/src/themes/app_images.dart';
 import 'package:travel_app/src/widgets/card_adventure.dart';
 
 class AdventurePage extends StatefulWidget {
@@ -11,9 +12,9 @@ class AdventurePage extends StatefulWidget {
 }
 
 List listCards = [
-  CardAdventure(title: 'River', imagePath: 'assets/images/png/river.png'),
-  CardAdventure(title: 'Desert', imagePath: 'assets/images/png/desert.png'),
-  CardAdventure(title: 'Camping', imagePath: 'assets/images/png/mountain.png'),
+  CardAdventure(title: 'River', imagePath: AppImagens.river),
+  CardAdventure(title: 'Desert', imagePath: AppImagens.desert),
+  CardAdventure(title: 'Camping', imagePath: AppImagens.mountain),
 ];
 
 class _AdventurePageState extends State<AdventurePage> {
