@@ -72,10 +72,7 @@ class _AuthPageState extends State<AuthPage> {
         localizedReason: 'Touch your finger on the sensor to login',
         useErrorDialogs: true,
         stickyAuth: false,
-        // androidAuthStrings: AndroidAuthMessages(signInTitle: 'tese'),
         biometricOnly: true,
-
-        // androidAuthStrings:AndroidAuthMessages(signInTitle: "Login to HomePage")
       );
     } catch (e) {
       print("error using biometric auth: $e");
