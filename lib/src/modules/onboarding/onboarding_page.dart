@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:travel_app/src/modules/auth/auth_page.dart';
+import 'package:travel_app/src/modules/onboarding/teste.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
 import 'package:travel_app/src/themes/app_images.dart';
 
@@ -87,7 +88,7 @@ class OnBoardingPage extends StatelessWidget {
                       ),
                     ),
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           CupertinoPageRoute(
                             builder: (builder) => const AuthPage(),

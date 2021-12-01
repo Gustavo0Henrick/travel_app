@@ -29,8 +29,8 @@ abstract class AppImagens {
   static const String hawaiiPng = 'assets/images/png/hawaii.png';
   static const String indiaPng = 'assets/images/png/india.png';
   static const String mountain = 'assets/images/png/mountain.png';
-  static const String newYork = 'assets/images/png/new_york.png';
-  static const String paris = 'assets/images/png/paris.png';
+  static const String newYork = 'assets/images/png/new_york_mini.png';
+  static const String paris = 'assets/images/png/paris_mini.png';
   static const String river = 'assets/images/png/river.png';
   static const String sydney = 'assets/images/png/sydney.png';
 }

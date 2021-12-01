@@ -1,12 +1,93 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:local_auth/auth_strings.dart';
+import 'package:local_auth/local_auth.dart';
 import 'package:travel_app/src/modules/home/dashboard_page.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
 import 'package:travel_app/src/themes/app_images.dart';
+import 'package:flutter/services.dart';
 
-class AuthPage extends StatelessWidget {
+class AuthPage extends StatefulWidget {
   const AuthPage({Key? key}) : super(key: key);
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  bool _loading = false;
+  _signIn(BuildContext context) async {
+    bool isAuthenticated = await checkBiometric();
+
+    if (isAuthenticated) {
+      setState(() {
+        _loading = true;
+      });
+      await Future.delayed(Duration(seconds: 2));
+      Navigator.pushReplacement(
+          context,
+          CupertinoPageRoute(
+            builder: (builder) => const DashboardPage(),
+          ));
+    } else {
+      var snackBar = const SnackBar(
+        content: Text('Error authenticating using Biometrics.'),
+        duration: Duration(milliseconds: 2500),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  bool isAuth = false;
+  checkBiometric() async {
+    final LocalAuthentication auth = LocalAuthentication();
+    bool canCheckBiometrics = false;
+    List<BiometricType> availableBiometrics = [];
+    try {
+      canCheckBiometrics = await auth.canCheckBiometrics;
+    } catch (e) {
+      print("error biome trics $e");
+    }
+    print("biometric is available: $canCheckBiometrics");
+
+    try {
+      availableBiometrics = await auth.getAvailableBiometrics();
+    } catch (e) {
+      print("error enumerate biometrics $e");
+    }
+    print("following biometrics are available");
+    if (availableBiometrics.isNotEmpty) {
+      availableBiometrics.forEach((ab) {
+        print("\ttech: $ab");
+      });
+    } else {
+      print("no biometrics are available");
+    }
+
+    bool authenticated = false;
+
+    try {
+      authenticated = await auth.authenticate(
+        localizedReason: 'Touch your finger on the sensor to login',
+        useErrorDialogs: true,
+        stickyAuth: false,
+        // androidAuthStrings: AndroidAuthMessages(signInTitle: 'tese'),
+        biometricOnly: true,
+
+        // androidAuthStrings:AndroidAuthMessages(signInTitle: "Login to HomePage")
+      );
+    } catch (e) {
+      print("error using biometric auth: $e");
+    }
+
+    setState(() {
+      isAuth = authenticated ? true : false;
+    });
+
+    print("authenticated: $authenticated");
+    return authenticated;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,79 +152,117 @@ class AuthPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 510, right: 270),
                 child: SvgPicture.asset(
-                   AppImagens.bird2,
+                  AppImagens.bird2,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 520, right: 190),
                 child: SvgPicture.asset(
-                   AppImagens.bird3,
+                  AppImagens.bird3,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 180),
-                child: ElevatedButton(
-                  child: Container(
-                    width: 300,
-                    height: 60,
-                    child: const Center(
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
+              _loading
+                  ? Container(
+                      height: 350,
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 0),
+                        child: Container(
+                          height: 250,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 20),
+                                child: ElevatedButton(
+                                  child: Container(
+                                    width: 300,
+                                    height: 60,
+                                    child: const Center(
+                                      child: Text(
+                                        'Sign In',
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () => _signIn(context),
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                    elevation: 0,
+                                    primary: AppColors.orange,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 100),
+                                child: ElevatedButton(
+                                  child: Container(
+                                    width: 300,
+                                    height: 60,
+                                    child: const Center(
+                                      child: Text(
+                                        'Create an account',
+                                        style: TextStyle(
+                                          color: AppColors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                    elevation: 0,
+                                    primary: AppColors.darkGrey,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (builder) => const DashboardPage(),
-                        ));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                    elevation: 0,
-                    primary: AppColors.orange,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 100),
-                child: ElevatedButton(
-                  child: Container(
-                    width: 300,
-                    height: 60,
-                    child: const Center(
-                      child: Text(
-                        'Create an account',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ),
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(0),
-                    ),
-                    elevation: 0,
-                    primary: AppColors.darkGrey,
-                  ),
-                ),
-              ),
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+class Authentication {
+  static Future<bool> authenticateWithBiometrics() async {
+    final LocalAuthentication localAuthentication = LocalAuthentication();
+    bool isBiometricSupported = await localAuthentication.isDeviceSupported();
+    bool canCheckBiometrics = await localAuthentication.canCheckBiometrics;
+
+    bool isAuthenticated = false;
+
+    if (isBiometricSupported && canCheckBiometrics) {
+      isAuthenticated = await localAuthentication.authenticate(
+        localizedReason: 'Please complete the biometrics to proceed.',
+        biometricOnly: true,
+        useErrorDialogs: true,
+        stickyAuth: true,
+        androidAuthStrings: AndroidAuthMessages(signInTitle: 'Login Page'),
+      );
+    }
+    print(isAuthenticated);
+
+    return isAuthenticated;
   }
 }
