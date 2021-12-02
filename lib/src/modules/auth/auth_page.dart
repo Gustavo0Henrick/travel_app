@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:local_auth/auth_strings.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:travel_app/src/cubit/auth.cubit.dart';
 import 'package:travel_app/src/modules/home/dashboard_page.dart';
 import 'package:travel_app/src/themes/app_colors.dart';
 import 'package:travel_app/src/themes/app_images.dart';
@@ -15,21 +18,31 @@ class AuthPage extends StatefulWidget {
   State<AuthPage> createState() => _AuthPageState();
 }
 
+late AuthCubit authCubit;
+bool _loginSuccess = false;
+
 class _AuthPageState extends State<AuthPage> {
-  bool _loading = false;
+  @override
+  void initState() {
+    super.initState();
+    authCubit = BlocProvider.of<AuthCubit>(context);
+  }
+
+  void _login() async {
+    await authCubit.login(context);
+
+    Navigator.pushReplacement(
+        context,
+        CupertinoPageRoute(
+          builder: (builder) => const DashboardPage(),
+        ));
+  }
+
   _signIn(BuildContext context) async {
     bool isAuthenticated = await checkBiometric();
 
     if (isAuthenticated) {
-      setState(() {
-        _loading = true;
-      });
-      await Future.delayed(Duration(seconds: 2));
-      Navigator.pushReplacement(
-          context,
-          CupertinoPageRoute(
-            builder: (builder) => const DashboardPage(),
-          ));
+      _login();
     } else {
       var snackBar = const SnackBar(
         content: Text('Error authenticating using Biometrics.'),
@@ -76,6 +89,7 @@ class _AuthPageState extends State<AuthPage> {
       );
     } catch (e) {
       print("error using biometric auth: $e");
+      auth.stopAuthentication();
     }
 
     setState(() {
@@ -158,14 +172,22 @@ class _AuthPageState extends State<AuthPage> {
                   AppImagens.bird3,
                 ),
               ),
-              _loading
-                  ? Container(
-                      height: 350,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : Align(
+              BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  if (state is AuthStateError) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(SnackBar(content: Text(state.message)));
+                  }
+                },
+                builder: (context, state) {
+                  return ModalProgressHUD(
+                    color: AppColors.transparent,
+                    inAsyncCall: state is AuthStateLoading,
+                    progressIndicator: const CircularProgressIndicator(
+                      valueColor:
+                          AlwaysStoppedAnimation<Color>(AppColors.white),
+                    ),
+                    child: Align(
                       alignment: Alignment.bottomCenter,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 0),
@@ -233,6 +255,9 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ),
                     ),
+                  );
+                },
+              ),
             ],
           ),
         ),
